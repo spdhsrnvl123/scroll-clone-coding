@@ -1,0 +1,55 @@
+@charset 'utf-8';
+
+html {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+}
+body {
+  overflow-x: hidden; /*가로스크롤 안보이게 만들기*/
+  color: rgb(29, 29, 31);
+  letter-spacing: -0.05em;
+  background: white;
+}
+p {
+  line-height: 1.6; /*행간을 조금 떨어지게 만들기*/
+}
+a {
+  color: rgb(29, 29, 31);
+  text-decoration: none;
+}
+.global-nav {
+  height: 44px;
+  padding: 0 1rem; /*상,하는 0으로 좌,우는 1로 */
+}
+.local-nav {
+  height: 52px;
+  border-bottom: 1px solid #ddd;
+  /* padding: 0 1rem; */
+}
+.global-nav-links,
+.local-nav-links {
+  max-width: 1000px; /* 1000px보다 브라우저가 작을 때 자연스럽게 줄어들게 만들기 max-width의 기능 */
+  display: flex;
+  height: 100%;
+  margin: 0 auto;
+  align-items: center;
+}
+.global-nav-links {
+  justify-content: space-between;
+}
+.local-nav-links .product-name {
+  margin-right: auto; /*빈 영역을 마진 auto가 다 쓴다는 것*/
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+/* a태그보다 구체적인 클래스명(.product-name)이 우선권에 있다 */
+.local-nav-links a {
+  font-size: 0.8rem;
+}
+.local-nav-links a:not(.product-name) {
+  /* 가로안에 조건을 빼고 스타일링한다.*/
+  margin-left: 2em;
+}
+.scroll-section {
+  padding-top: 50vh; /*뷰포트높이(브라우저창 높이) 절반*/
+}
