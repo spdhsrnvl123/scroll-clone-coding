@@ -71,6 +71,7 @@ a {
 .main-message {
   display: flex;
   align-items: center;
+  top: 35vh;
   justify-content: center;
   margin: 5px 0px;
   height: 3em;
@@ -142,7 +143,7 @@ a {
 .sticky-elem {
   display: none; /*기본적으로 안보이게 해준다.*/
   position: fixed;
-  top: 0;
+  /* top: 0; */
   left: 0;
   width: 100%;
 }

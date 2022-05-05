@@ -22,8 +22,9 @@
             },
             //어느 시점에 등장시키고 빠지게 할 건지 css값을 어떤 값으로 넣을건지 정해주는 것이다.
             values: {
-                messageA_opacity: [0, 1, { start: 0.1, end: 0.2 }], //투명도가 0에서 1까지
-                messageB_opacity: [0, 1, { start: 0.3, end: 0.4 }], //투명도가 0에서 1까지
+                messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }], //투명도가 0에서 1까지
+                messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
+                messageA_opacity_out: [1, 0, { start: 0.25, end:0.3 }],
             }
         },
         {
@@ -79,10 +80,25 @@
     function calcValues(values,currentYOffset) {
         let rv;
         //현재 씬(스크롤섹션)에서 스크롤된 범위를 비율로 구하기
-        let scrollRatio = currentYOffset / sceneInfo[currentScene].scrollHeight;
+        const scrollHeight = sceneInfo[currentScene].scrollHeight;
+        const scrollRati = currentYOffset / scrollHeight;
 
-        rv = scrollRatio * (values[1] - values[0]) + values[0];
-        
+        if (values.length === 3) {
+            // start ~ end 사이에 애니메이션 실행
+            const partScrollStart = values[2].start * scrollHeight; //시작점
+            const partScrollEnd = values[2].end * scrollHeight; //끝나는점
+            const partScrollHeight = partScrollEnd - partScrollStart;
+
+            if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
+                rv =(currentYOffset - partScrollStart) / partScrollHeight * (values[1] - values[0]) + values[0];            
+            } else if (currentYOffset < partScrollStart) {
+                rv = values[0];
+            } else if (currentYOffset > partScrollEnd) {
+                rv = values[1];
+            }
+        } else {
+            rv = scrollRatio * (values[1] - values[0]) + values[0]; //현재 씬에서 전체
+        }
         //parseInt 정수값으로 변환한다.
         
         return rv;
@@ -93,7 +109,7 @@
         const values = sceneInfo[currentScene].values;
         const currentYOffset = yOffset - prevScrollHeight; //현재 씬 높이값
 
-        console.log(currentScene);
+        // console.log(currentScene);
         // console.log(currentScene,currentYOffset);
 
         switch (currentScene) {
@@ -102,7 +118,7 @@
                 // let messageA_opacity_0 = values.messageA_opacity[0];
                 // let messageA_opacity_1 = values.messageA_opacity[1];
                 // console.log(values.messageA_opacity)
-                let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset);
+                let messageA_opacity_in = calcValues(values.messageA_opacity_in, currentYOffset);
                 console.log(messageA_opacity_in);
                 objs.messageA.style.opacity = messageA_opacity_in;
                 // console.log(calcValues(values.messageA_opacity, currentYOffset));
