@@ -5,7 +5,7 @@ html {
   font-size: 14px;
 }
 body {
-  overflow-x: hidden; /*가로스크롤 안보이게 만들기*/
+  overflow-x: hidden; /*가로 스크롤 안보이게 만들기*/
   color: rgb(29, 29, 31);
   letter-spacing: -0.05em;
   background: white;
@@ -18,13 +18,21 @@ a {
   text-decoration: none;
 }
 .global-nav {
+  position: absolute; /*메뉴바가 공간을 차지하고 있기 때문에 브라우저 높이 값이 메뉴판 값까지 계산해서 결과값이 나오기 때문에 position:absolute를 해주어 해당 영역을 띄우게 만들어 준다.*/
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 44px;
   padding: 0 1rem; /*상,하는 0으로 좌,우는 1로 */
 }
 .local-nav {
+  position: absolute; /*메뉴바가 공간을 차지하고 있기 때문에 브라우저 높이 값이 메뉴판 값까지 계산해서 결과값이 나오기 때문에 position:absolute를 해주어 해당 영역을 띄우게 만들어 준다.*/
+  top: 45px; /*global-nav가 45px이기 때문에*/
+  left: 0;
+  width: 100%;
   height: 52px;
+  padding: 0 1rem;
   border-bottom: 1px solid #ddd;
-  /* padding: 0 1rem; */
 }
 .global-nav-links,
 .local-nav-links {
@@ -52,4 +60,131 @@ a {
 }
 .scroll-section {
   padding-top: 50vh; /*뷰포트높이(브라우저창 높이) 절반*/
+  border: 3px solid red;
 }
+
+#scroll-section-0 h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.main-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0px;
+  height: 3em;
+  font-size: 2.5rem;
+  opacity: 0; /*기본적으로 처음 시작할 때 안보이게 만들기 위해서 opacity값을 0으로 한다.*/
+}
+.main-message p {
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.2;
+}
+.main-message small {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 1.2rem;
+}
+#scroll-section-2 .main-message {
+  font-size: 3.5rem;
+}
+.description {
+  max-width: 1000px; /*max-width로 했으니까 모바일 환경에서도 적용.*/
+  margin: 0 auto;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  color: #888;
+}
+.description strong {
+  float: left;
+  margin-right: 0.2em;
+  font-size: 3rem;
+  color: rgb(29, 29, 31);
+}
+/* font-size는 rem으로 하지만 나머지 height나 margin을 em으로 하는 의도는 현재 컨텍스트에서 이 비율을 사용하겠다는 의도이다. */
+.des-message {
+  width: 50%;
+  font-weight: bold;
+}
+.pin {
+  width: 1px;
+  height: 100px;
+  background: rgb(29, 29, 31);
+}
+.mid-message {
+  padding: 0 1rem;
+  font-size: 2rem;
+  color: #888;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.mid-message strong {
+  color: rgb(29, 29, 31);
+}
+.canvas-caption {
+  font-size: 1.2rem;
+  padding: 0 1rem;
+  color: #888;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  background-color: darkorange;
+  color: white;
+}
+
+.sticky-elem {
+  display: none; /*기본적으로 안보이게 해준다.*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#show-scene-0 #scroll-section-0 .sticky-elem,
+#show-scene-1 #scroll-section-1 .sticky-elem,
+#show-scene-2 #scroll-section-2 .sticky-elem,
+#show-scene-3 #scroll-section-3 .sticky-elem {
+  display: block;
+}
+
+/* 1024px 이상이면 media-query css속성이 적용된다. */
+@media (min-width: 1024px) {
+  #scroll-section-0 h1 {
+    font-size: 9vw; /*윈도우 창 크기에 따라서 font-size가 늘어남 브라우저 너비의 9% */
+  }
+  .main-message {
+    font-size: 4vw;
+  }
+  .description {
+    /* max-width: 1000px  */ /*이렇게 설정해주면 가운데 정렬이 되지만 1023px일 때는 적용이 안되기 때문에 일반클래스에 속성값을 설정해 준다.*/
+    /* margin: 0 auto; */
+    font-size: 2rem;
+  }
+  .description strong {
+    font-size: 6rem;
+  }
+  #scroll-section-2 .main-message {
+    font-size: 6vw;
+  }
+  .main-message small {
+    font-size: 1.5vw;
+  }
+  .desc-message {
+    width: 20%;
+  }
+  .mid-message {
+    font-size: 4vw;
+  }
+  .canvas-caption {
+    font-size: 2rem;
+  }
+}
+/*전체적인 scroll-section 조정X 이유 아래 하단 주석 참고*/
+/* scroll-section-1 컨텐츠가 가운데 정렬하기 위해서 scroll-section자체를 통체로 줄이는 방법(max-width:1000px)은 좋은 방법이 아니다 왜냐하면 결과물을 보면 뒤에 있는 비디오가 꽉찰 수 있기 떄문에 컨테이너 자체를 제한하는거는 좋은 방법이 아니다.*/
