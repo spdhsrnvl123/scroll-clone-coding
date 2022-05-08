@@ -105,14 +105,25 @@ a {
   color: rgb(29, 29, 31);
 }
 /* font-size는 rem으로 하지만 나머지 height나 margin을 em으로 하는 의도는 현재 컨텍스트에서 이 비율을 사용하겠다는 의도이다. */
-.des-message {
-  width: 50%;
+.sticky-elem.desc-message {
+  width: 45%;
   font-weight: bold;
+  opacity: 0;
 }
 .pin {
   width: 1px;
   height: 100px;
   background: rgb(29, 29, 31);
+}
+#scroll-section-2 .b {
+  /*모바일 환경*/
+  top: 10%;
+  left: 40%;
+}
+#scroll-section-2 .c {
+  /*모바일 환경*/
+  top: 15%;
+  left: 45%;
 }
 .mid-message {
   padding: 0 1rem;
@@ -179,6 +190,15 @@ a {
   }
   .desc-message {
     width: 20%;
+  }
+  #scroll-section-2 .b {
+    /*데스크탑 환경*/
+    top: 20%;
+    left: 53%;
+  }
+  #scroll-section2 .c {
+    /*데스크탑 환경*/
+    left: 55%;
   }
   .mid-message {
     font-size: 4vw;
