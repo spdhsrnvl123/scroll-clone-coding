@@ -42,8 +42,8 @@
         },
         {
             //1
-            type: 'normal',
-            //heightNum: 5, //type normal에서는 필요 없음
+            type: 'normal', //type normal에서는 필요 없음
+            //heightNum: 5,
             scrollHeight: 0,
             objs: {
                 container: document.querySelector("#scroll-section-1"),
@@ -76,6 +76,12 @@
                 messageA_opacity_out: [1, 0, { start: 0.3, end: 0.35 }],
                 messageB_opacity_out: [1, 0, { start: 0.58, end: 0.63 }],
                 messageC_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
+                pinB_scaleY: [0.5, 1, { start: 0.5, end: 0.55 }],
+                pinC_scaleY: [0.5, 1, { start: 0.72, end: 0.77 }],
+                pinB_opacity_in: [0, 1, { start: 0.5, end: 0.55 }],
+                pinC_opacity_in: [0, 1, { start: 0.72, end: 0.77 }],
+                pinB_opacity_out: [1, 0, { start: 0.58, end: 0.63 }],
+                pinC_opacity_out: [1, 0, {start:0.85, end:0.9}]
             }
         },
         {
@@ -165,6 +171,8 @@
                 // const messageA_translateY_in = calcValues(values.messageA_opacity_in, currentYOffset);
                 // const messageA_translateY_out = calcValues(values.messageA_translateY_out, currentYOffset);
 
+                //translate3d를 쓴 이유는 하드웨어 가속이 보장이된다.(translateY로 사용해도 상관없다.)
+
                 if (scrollRatio <= 0.22) {
                     objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
                     objs.messageA.style.transform = `translate3d(0,${calcValues(values.messageA_translateY_in, currentYOffset)}%,0)`;
@@ -209,7 +217,30 @@
                     objs.messageA.style.opacity = calcValues(values.messageA_opacity_out, currentYOffset);
                     objs.messageA.style.transform = `translate3d(0, ${calcValues(values.messageA_translateY_out, currentYOffset)}%, 0)`;
                 }
-                break;
+                 if (scrollRatio <= 0.57) {
+                // in
+                    objs.messageB.style.transform = `translate3d(0, ${calcValues(values.messageB_translateY_in, currentYOffset)}%, 0)`;
+                    objs.messageB.style.opacity = calcValues(values.messageB_opacity_in, currentYOffset);
+                    objs.pinB.style.transform = `scaleY(${calcValues(values.pinB_scaleY, currentYOffset)})`;
+                } else {
+                    // out
+                    objs.messageB.style.transform = `translate3d(0, ${calcValues(values.messageB_translateY_out, currentYOffset)}%, 0)`;
+                    objs.messageB.style.opacity = calcValues(values.messageB_opacity_out, currentYOffset);
+                    objs.pinB.style.transform = `scaleY(${calcValues(values.pinB_scaleY, currentYOffset)})`;
+                }
+
+                if (scrollRatio <= 0.83) {
+                    // in
+                    objs.messageC.style.transform = `translate3d(0, ${calcValues(values.messageC_translateY_in, currentYOffset)}%, 0)`;
+                    objs.messageC.style.opacity = calcValues(values.messageC_opacity_in, currentYOffset);
+                    objs.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
+                } else {
+                    // out
+                    objs.messageC.style.transform = `translate3d(0, ${calcValues(values.messageC_translateY_out, currentYOffset)}%, 0)`;
+                    objs.messageC.style.opacity = calcValues(values.messageC_opacity_out, currentYOffset);
+                    objs.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
+                }
+                    break;
             case 3:
                 // console.log('3 play');
                 break;
